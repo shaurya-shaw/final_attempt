@@ -17,13 +17,18 @@ export default function RaceTrackSection() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [announcement, setAnnouncement] = useState("");
 
-  const handleSelect = useCallback((id: RaceTrackId) => {
-    if (isAnimating) return;
-    const track = RACE_TRACKS.find((t) => t.id === id);
-    setSelectedId(id);
-    setIsAnimating(true);
-    setAnnouncement(track ? `You chose ${track.name}.` : "You chose this race.");
-  }, [isAnimating]);
+  const handleSelect = useCallback(
+    (id: RaceTrackId) => {
+      if (isAnimating) return;
+      const track = RACE_TRACKS.find((t) => t.id === id);
+      setSelectedId(id);
+      setIsAnimating(true);
+      setAnnouncement(
+        track ? `You chose ${track.name}.` : "You chose this race.",
+      );
+    },
+    [isAnimating],
+  );
 
   useEffect(() => {
     if (!selectedId) return;
@@ -37,7 +42,7 @@ export default function RaceTrackSection() {
 
   return (
     <section
-      className="relative min-h-screen px-6 py-16 lg:py-24"
+      className="relative min-h-screen px-6 py-10 lg:py-6"
       aria-labelledby="race-track-title"
     >
       {/* Ambient glow */}
@@ -103,7 +108,7 @@ export default function RaceTrackSection() {
 
         {/* Card grid */}
         <div
-          className={`grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 ${isAnimating ? "pointer-events-none" : ""}`}
+          className={`grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-4 ${isAnimating ? "pointer-events-none" : ""}`}
         >
           {RACE_TRACKS.map((track, index) => (
             <RaceTrackCard

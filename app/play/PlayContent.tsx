@@ -12,12 +12,21 @@ export default function PlayContent() {
   const trackParam = searchParams.get("track");
   const [mascotError, setMascotError] = useState(false);
 
-  const track = isRaceTrackId(trackParam) ? getRaceTrack(trackParam) : undefined;
+  const track = isRaceTrackId(trackParam)
+    ? getRaceTrack(trackParam)
+    : undefined;
 
   useEffect(() => {
     if (!track) {
       router.replace("/select");
+      return;
     }
+
+    const timer = setTimeout(() => {
+      router.push("/attempt");
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, [track, router]);
 
   if (!track) {
@@ -104,32 +113,14 @@ export default function PlayContent() {
           &ldquo;{track.flavorText}&rdquo;
         </p>
 
-        <p className="mb-10 text-[15px] leading-relaxed" style={{ color: "#8892a4" }}>
+        <p
+          className="mb-10 text-[15px] leading-relaxed"
+          style={{ color: "#8892a4" }}
+        >
           Simulation coming soon. Your race track has been locked in.
         </p>
 
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/select"
-            className="inline-flex items-center rounded border border-[rgba(37,99,235,0.4)] bg-[rgba(37,99,235,0.15)] px-8 py-3 text-[13px] font-semibold tracking-[0.15em] uppercase no-underline transition-opacity hover:opacity-90"
-            style={{
-              fontFamily: "Space Grotesk, sans-serif",
-              color: "#e8eaf0",
-            }}
-          >
-            Choose Again
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center text-[11px] tracking-[0.15em] uppercase no-underline transition-opacity hover:opacity-80"
-            style={{
-              fontFamily: "JetBrains Mono, monospace",
-              color: "rgba(148,163,184,0.7)",
-            }}
-          >
-            Back to Home
-          </Link>
-        </div>
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"></div>
       </div>
     </main>
   );
