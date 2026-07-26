@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from "framer-motion";
 
@@ -431,6 +432,7 @@ function RoomProps() {
 
 // ── Magnetic CTA Button ────────────────────────────────────────────────────
 function CTAButton({ large = false }: { large?: boolean }) {
+  const router = useRouter();
   const btnRef   = useRef<HTMLButtonElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -473,6 +475,7 @@ function CTAButton({ large = false }: { large?: boolean }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       onHoverStart={onHoverStart}
+      onClick={() => router.push("/select")}
       whileTap={{ scale: 0.97 }}
       aria-label="Start the Student Survival Simulator"
       className="relative inline-flex items-center gap-3 overflow-hidden rounded cursor-pointer"

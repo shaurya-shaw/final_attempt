@@ -39,3 +39,5 @@ TODO.txt
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/docs

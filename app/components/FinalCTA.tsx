@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   motion,
   useInView,
@@ -11,6 +12,7 @@ import {
 import gsap from "gsap";
 
 function MagneticButton() {
+  const router = useRouter();
   const btnRef = useRef<HTMLButtonElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -48,6 +50,7 @@ function MagneticButton() {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       onHoverStart={onHoverStart}
+      onClick={() => router.push("/select")}
       whileTap={{ scale: 0.97 }}
       aria-label="Start the Student Survival Simulator"
     >
