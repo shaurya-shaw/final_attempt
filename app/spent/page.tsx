@@ -1,20 +1,46 @@
 "use client";
 
-import { useAttemptStore } from "@/lib/store";
+import { SpentSlider } from "../components/spent-slider/spent-slider";
+import { useSpentStore } from "@/lib/spentStore";
 
 export default function SpentPage() {
-  const attempt = useAttemptStore((state) => state.selectedAttempt);
+  const moneySpent = useSpentStore((state) => state.moneySpent);
+  const timeSpent = useSpentStore((state) => state.timeSpent);
+  const setMoneySpent = useSpentStore((state) => state.setMoneySpent);
+  const setTimeSpent = useSpentStore((state) => state.setTimeSpent);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#06080c] p-6 text-white">
-      <h1 className="text-4xl font-bold mb-4">Spent Page</h1>
-      {attempt ? (
-        <p className="text-xl text-neutral-400">
-          You clicked on: <span className="font-bold text-[#1e3a8a]">{attempt}</span>
+    <div className="flex w-full max-w-sm flex-col gap-8 rounded-xl border border-border bg-card p-8 text-card-foreground shadow-sm">
+      <div className="flex flex-col gap-1 text-center">
+        <h2 className="text-xl font-semibold text-balance">
+          How Much Are You Betting?
+        </h2>
+        <p className="text-sm text-muted-foreground text-pretty">
+          Time. Money. Pieces of your life
         </p>
-      ) : (
-        <p className="text-xl text-neutral-400">Loading your choice...</p>
-      )}
+      </div>
+      <SpentSlider
+        EMOJIS={[""]}
+        name="Time spent"
+        min={0}
+        max={10}
+        step={1}
+        value={timeSpent}
+        onValueChange={setTimeSpent}
+        prefix=""
+        suffix=" years"
+      />
+      <SpentSlider
+        EMOJIS={["💸", "💸", "💸", "💸"]}
+        name="Money spent"
+        min={0}
+        max={1000000}
+        step={10000}
+        value={moneySpent}
+        onValueChange={setMoneySpent}
+        prefix="₹"
+        suffix="+"
+      />
     </div>
   );
 }
