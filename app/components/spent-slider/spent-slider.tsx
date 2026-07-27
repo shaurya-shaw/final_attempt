@@ -49,7 +49,7 @@ export function SpentSlider({
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between text-sm">
         <span className="text-muted-foreground">{name}</span>
-        <span className="font-medium tabular-nums">
+        <span className="font-medium tabular-nums text-black">
           {prefix}
           {currentValue.toLocaleString("en-IN")}
           {suffix}
