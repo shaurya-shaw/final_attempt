@@ -2,7 +2,7 @@
 
 import { Caveat } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { useAttemptStore } from "@/lib/store";
+import { useAttemptStore } from "@/app/store/attemptStore";
 import {
   DraggableCardBody,
   DraggableCardContainer,

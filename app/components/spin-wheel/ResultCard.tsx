@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useSpinStore } from "@/lib/store";
+import { useSpinStore } from "@/app/store/spinStore";
 
 type ExamEvent = {
   effect: number;

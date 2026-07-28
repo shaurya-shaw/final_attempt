@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { SpentSlider } from "../components/spent-slider/spent-slider";
 import { Button } from "../components/ui/button";
-import { useSpentStore } from "@/lib/spentStore";
+import { useSpentStore } from "@/app/store/spentStore";
 
 export default function SpentPage() {
   const router = useRouter();

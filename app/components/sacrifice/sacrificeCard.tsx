@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useSacrificeStore } from "@/lib/sacrificeStore";
+import { useSacrificeStore } from "@/app/store/sacrificeStore";
 
 interface SacrificeCardProps {
   label: string;

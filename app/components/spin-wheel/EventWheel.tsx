@@ -4,7 +4,7 @@ import { useState } from "react";
 import { EVENTS, SEGMENT_ANGLE, type ExamEvent } from "../../data/events";
 import ResultCard from "./ResultCard";
 import Wheel from "./Wheel";
-import { useSpinStore } from "@/lib/store";
+import { useSpinStore } from "@/app/store/spinStore";
 
 const SPIN_DURATION_MS = 4500;
 
