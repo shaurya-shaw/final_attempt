@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useSacrificeStore } from "@/lib/sacrificeStore";
 
 interface SacrificeCardProps {
   label: string;
@@ -15,10 +16,16 @@ export default function SacrificeCard({
   onChange,
 }: SacrificeCardProps) {
   const [checked, setChecked] = useState(defaultChecked);
+  const { increment, decrement } = useSacrificeStore();
 
   const handleChange = () => {
     const newValue = !checked;
     setChecked(newValue);
+    if (newValue) {
+      increment();
+    } else {
+      decrement();
+    }
     onChange?.(newValue);
   };
 
