@@ -37,10 +37,11 @@ export default function EventWheel() {
     window.setTimeout(() => {
       setResult(event);
       setScore(event.effect || 0);
+      setOutcome(event.label || "");
       setSpinning(false);
     }, SPIN_DURATION_MS);
   };
-  const { setScore } = useSpinStore();
+  const { setScore, setOutcome } = useSpinStore();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-6 text-white">

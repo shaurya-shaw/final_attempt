@@ -11,9 +11,10 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import type { RaceTrack, RaceTrackId } from "../../data/raceTracks";
-import { STAT_META, STAT_KEYS } from "../../data/raceTracks";
-import AttributeBar from "./AttributeBar";
+import type { RaceTrack, RaceTrackId } from "@/app/data/raceTracks";
+import { STAT_META, STAT_KEYS } from "@/app/data/raceTracks";
+import AttributeBar from "@/components/race-track/AttributeBar";
+import { useRaceTrackStore } from "@/app/store/raceTrackStore";
 
 type RaceTrackCardProps = {
   track: RaceTrack;
@@ -35,6 +36,9 @@ export default function RaceTrackCard({
   const [hovered, setHovered] = useState(false);
   const prefersReduced = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const setRaceName = useRaceTrackStore((state) => state.setRaceName);
+  const setMascotImageID = useRaceTrackStore((state) => state.setMascotImageID);
 
   const isSelected = selectedId === track.id;
   const isDimmed = selectedId !== null && !isSelected;
@@ -59,7 +63,7 @@ export default function RaceTrackCard({
       mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
       mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
     },
-    [prefersReduced, isAnimating, selectedId, mouseX, mouseY]
+    [prefersReduced, isAnimating, selectedId, mouseX, mouseY],
   );
   const handleMouseLeave = useCallback(() => {
     mouseX.set(0);
@@ -135,7 +139,13 @@ export default function RaceTrackCard({
         {/* ── Dark card body ────────────────────────────────────────── */}
         <motion.button
           type="button"
-          onClick={() => !isAnimating && onSelect(track.id)}
+          onClick={() => {
+            if (!isAnimating) {
+              setRaceName(track.name);
+              setMascotImageID(track.id);
+              onSelect(track.id);
+            }
+          }}
           disabled={isAnimating}
           aria-label={`Select ${track.name} exam track`}
           className="relative flex w-full flex-col overflow-hidden text-left outline-none focus-visible:ring-2 focus-visible:ring-white/25"
@@ -154,7 +164,7 @@ export default function RaceTrackCard({
               height: "195px",
               background: `radial-gradient(ellipse 80% 70% at 50% 90%, ${accentStrong.replace(
                 "0.75",
-                "0.15"
+                "0.15",
               )} 0%, transparent 70%), linear-gradient(180deg, #0d1525 0%, #060810 100%)`,
             }}
           >
@@ -172,26 +182,26 @@ export default function RaceTrackCard({
 
             {/* Mascot — subtle 1.03× scale on hover */}
             <AnimatePresence mode="wait">
-                <motion.div
-                  key="mascot"
-                  className="absolute inset-0"
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{
-                    opacity: 1,
-                    scale: hovered && !prefersReduced ? 1.03 : 1,
-                  }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  <Image
-                    src={track.mascotSrc}
-                    alt={`${track.name} mascot`}
-                    fill
-                    className="object-contain object-bottom"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1440px) 25vw, 360px"
-                    onError={() => setMascotError(true)}
-                    priority={index < 4}
-                  />
-                </motion.div>
+              <motion.div
+                key="mascot"
+                className="absolute inset-0"
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{
+                  opacity: 1,
+                  scale: hovered && !prefersReduced ? 1.03 : 1,
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <Image
+                  src={track.mascotSrc}
+                  alt={`${track.name} mascot`}
+                  fill
+                  className="object-contain object-bottom"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1440px) 25vw, 360px"
+                  onError={() => setMascotError(true)}
+                  priority={index < 4}
+                />
+              </motion.div>
             </AnimatePresence>
 
             {/* Bottom vignette */}

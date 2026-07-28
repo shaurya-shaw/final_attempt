@@ -2,14 +2,18 @@ import { create } from "zustand";
 
 interface spinStore {
   score: number;
-  result: string | null;
+  outcome: string | null;
   setScore: (score: number) => void;
-  setResult: (result: string | null) => void;
+  setOutcome: (result: string | null) => void;
+  resetScore: () => void;
+  resetOutcome: () => void;
 }
 
 export const useSpinStore = create<spinStore>((set) => ({
   score: 0,
-  result: null,
+  outcome: null,
   setScore: (score) => set({ score }),
-  setResult: (result) => set({ result }),
+  setOutcome: (outcome) => set({ outcome }),
+  resetScore: () => set({ score: 0 }),
+  resetOutcome: () => set({ outcome: null }),
 }));
