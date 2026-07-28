@@ -48,7 +48,8 @@ export default function ResultCard({ result }: ResultCardProps) {
       </div>
 
       <button
-        onClick={() => router.push("/reality")}
+        type="button"
+        onClick={() => router.push("/result-transition")}
         className="mt-8 block w-full rounded-full border border-zinc-700 py-3 text-center text-sm font-medium text-zinc-300 transition-all hover:border-zinc-500 hover:text-white"
       >
         Continue
