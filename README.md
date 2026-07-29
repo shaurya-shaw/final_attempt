@@ -145,8 +145,8 @@ The algorithm is designed to reflect reality: hard work matters, but luck matter
 
 ```bash
 # Clone the repository
-git clone https://github.com/shaurya-shaw/final_attempt.git
-cd final_attempt
+git clone https://github.com/shaurya-shaw/student-survival-simulator.git
+cd student-survival-simulator
 
 # Install dependencies
 npm install
