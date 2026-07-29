@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Navbar from "./components/Navbar";
-import HeroScene from "./components/HeroScene";
-import ScenariosSection from "./components/ScenariosSection";
-import StatsSection from "./components/StatsSection";
-import FinalCTA from "./components/FinalCTA";
+import Navbar from "@/app/components/heroSection/Navbar";
+import HeroScene from "@/app/components/heroSection/HeroScene";
+import ScenariosSection from "@/app/components/heroSection/ScenariosSection";
+import StatsSection from "@/app/components/heroSection/StatsSection";
+import FinalCTA from "@/app/components/heroSection/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Student Survival Simulator — Can You Survive as a Student in India?",
@@ -14,9 +14,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-
       <Navbar />
-
       <main id="main-content">
         {/* Hero */}
         <HeroScene />
