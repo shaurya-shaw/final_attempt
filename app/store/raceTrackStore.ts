@@ -1,9 +1,18 @@
 import { create } from "zustand";
 
+export type raceOption =
+  | "NEET"
+  | "JEE"
+  | "UPSC"
+  | "SSC"
+  | "Railway"
+  | "Banking"
+  | null;
+
 interface RaceTrackStore {
-  raceName: string | null;
+  raceName: raceOption;
   mascotImageID: string | null;
-  setRaceName: (name: string) => void;
+  setRaceName: (name: raceOption) => void;
   setMascotImageID: (id: string) => void;
   resetRaceName: () => void;
   resetMascotImageID: () => void;

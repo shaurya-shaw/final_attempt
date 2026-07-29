@@ -14,7 +14,7 @@ import { Sparkles } from "lucide-react";
 import type { RaceTrack, RaceTrackId } from "@/app/data/raceTracks";
 import { STAT_META, STAT_KEYS } from "@/app/data/raceTracks";
 import AttributeBar from "@/components/race-track/AttributeBar";
-import { useRaceTrackStore } from "@/app/store/raceTrackStore";
+import { useRaceTrackStore, type raceOption } from "@/app/store/raceTrackStore";
 
 type RaceTrackCardProps = {
   track: RaceTrack;
@@ -141,7 +141,7 @@ export default function RaceTrackCard({
           type="button"
           onClick={() => {
             if (!isAnimating) {
-              setRaceName(track.name);
+              setRaceName(track.name as raceOption);
               setMascotImageID(track.id);
               onSelect(track.id);
             }
