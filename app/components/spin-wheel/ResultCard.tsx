@@ -5,6 +5,7 @@ type ExamEvent = {
   effect: number;
   emoji: string;
   label: string;
+  caption: string;
 };
 
 type ResultCardProps = {
@@ -41,6 +42,7 @@ export default function ResultCard({ result }: ResultCardProps) {
               {result.effect > 0 ? "+" : ""}
               {score}%
             </p>
+            <p className="mt-4 text-sm text-zinc-400">{result.caption}</p>
           </div>
         </div>
 
