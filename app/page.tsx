@@ -14,10 +14,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* Skip-link — CSS-only, no JS event handlers needed */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
 
       <Navbar />
 

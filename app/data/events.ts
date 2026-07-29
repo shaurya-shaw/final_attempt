@@ -3,7 +3,7 @@ export const EVENTS = [
     label: "Easy Paper",
     emoji: "🟢",
     effect: 8,
-    caption: "You smiled. So did the cutoff.",
+    caption: "Everyone walks out smiling. Rank lists still destroy dreams.",
   },
   {
     label: "Cutoff Increased",

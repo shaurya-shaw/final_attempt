@@ -210,7 +210,7 @@ export default function SurvivalReportPage() {
     resetTimeSpent();
     resetScore();
     resetOutcome();
-    router.push("/select");
+    router.push("/");
   };
 
   const fadeUp = {
