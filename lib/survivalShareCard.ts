@@ -67,7 +67,7 @@ function drawMascot(
   image: HTMLImageElement,
   centerY: number,
 ) {
-  const maxSize = 240;
+  const maxSize = 320; // larger mascot for stronger identity
   const scale = Math.min(
     maxSize / image.naturalWidth,
     maxSize / image.naturalHeight,
@@ -99,10 +99,10 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
   context.fillRect(0, 0, WIDTH, HEIGHT);
 
   // Subtle stars
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 70; i++) {
     const x = (i * 137 + 61) % WIDTH;
     const y = (i * 251 + 97) % HEIGHT;
-    const opacity = 0.08 + ((i * 17) % 16) / 100;
+    const opacity = 0.07 + ((i * 17) % 14) / 100;
     context.fillStyle = `rgba(255,255,255,${opacity})`;
     context.fillRect(x, y, 2, 2);
   }
@@ -111,52 +111,52 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
   drawCenteredText(
     context,
     "SURVIVAL REPORT",
-    92,
-    "500 22px Inter, Arial, sans-serif",
-    "rgba(255,255,255,0.4)",
+    78,
+    "500 20px Inter, Arial, sans-serif",
+    "rgba(255,255,255,0.38)",
   );
 
-  // Mascot
+  // Mascot (larger + higher)
   if (input.mascotSrc) {
     try {
       const mascot = await loadImage(input.mascotSrc);
-      drawMascot(context, mascot, 250);
+      drawMascot(context, mascot, 230);
     } catch {
       // Card remains usable without mascot
     }
   }
 
-  // Big percentage
+  // Big percentage — dominant
   drawCenteredText(
     context,
     `${input.chance}%`,
-    470,
-    "700 160px Inter, Arial, sans-serif",
+    445,
+    "800 170px Inter, Arial, sans-serif",
     "#F43F5E",
   );
 
   drawCenteredText(
     context,
     "SURVIVAL CHANCE",
-    520,
-    "500 20px Inter, Arial, sans-serif",
-    "rgba(255,255,255,0.4)",
+    490,
+    "500 18px Inter, Arial, sans-serif",
+    "rgba(255,255,255,0.38)",
   );
 
   // Status
-  context.font = "700 48px Inter, Arial, sans-serif";
-  const statusLines = wrapText(context, input.status.toUpperCase(), 860);
+  context.font = "800 52px Inter, Arial, sans-serif";
+  const statusLines = wrapText(context, input.status.toUpperCase(), 900);
   statusLines.forEach((line, i) => {
     drawCenteredText(
       context,
       line,
-      600 + i * 56,
-      "700 48px Inter, Arial, sans-serif",
+      560 + i * 58,
+      "800 52px Inter, Arial, sans-serif",
       "#FFFFFF",
     );
   });
 
-  const afterStatus = 600 + (statusLines.length - 1) * 56;
+  const afterStatus = 560 + (statusLines.length - 1) * 58;
 
   // Exam + attempt
   const contextLine = input.attemptLabel
@@ -166,9 +166,9 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
   drawCenteredText(
     context,
     contextLine,
-    afterStatus + 56,
-    "500 24px Inter, Arial, sans-serif",
-    "rgba(255,255,255,0.55)",
+    afterStatus + 48,
+    "500 22px Inter, Arial, sans-serif",
+    "rgba(255,255,255,0.5)",
   );
 
   // Defining Event
@@ -179,21 +179,21 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
         ? "#FB7185"
         : "rgba(255,255,255,0.7)";
 
-  const eventBlockY = afterStatus + 110;
+  const eventBlockY = afterStatus + 100;
 
   drawCenteredText(
     context,
     "DEFINING EVENT",
     eventBlockY,
-    "500 16px Inter, Arial, sans-serif",
-    "rgba(255,255,255,0.4)",
+    "500 15px Inter, Arial, sans-serif",
+    "rgba(255,255,255,0.38)",
   );
 
   drawCenteredText(
     context,
     input.eventLabel,
-    eventBlockY + 48,
-    "600 34px Inter, Arial, sans-serif",
+    eventBlockY + 44,
+    "700 36px Inter, Arial, sans-serif",
     "#FFFFFF",
   );
 
@@ -205,28 +205,28 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
   drawCenteredText(
     context,
     resilienceText,
-    eventBlockY + 92,
-    "600 24px Inter, Arial, sans-serif",
+    eventBlockY + 84,
+    "600 22px Inter, Arial, sans-serif",
     eventColor,
   );
 
-  const afterEvent = eventBlockY + 92;
+  const afterEvent = eventBlockY + 84;
 
-  // Divider
+  // Thin divider
   context.strokeStyle = "rgba(255,255,255,0.12)";
   context.lineWidth = 1;
   context.beginPath();
-  context.moveTo(WIDTH / 2 - 40, afterEvent + 40);
-  context.lineTo(WIDTH / 2 + 40, afterEvent + 40);
+  context.moveTo(WIDTH / 2 - 120, afterEvent + 36);
+  context.lineTo(WIDTH / 2 + 120, afterEvent + 36);
   context.stroke();
 
-  // Stats
+  // Stats row
   const hasStats =
     input.sacrificeCount !== undefined ||
     input.moneyLabel !== undefined ||
     input.timeLabel !== undefined;
 
-  let statsBottom = afterEvent + 40;
+  let statsBottom = afterEvent + 36;
 
   if (hasStats) {
     const stats = [
@@ -244,39 +244,47 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
       },
     ];
 
-    const colWidth = 280;
+    const colWidth = 260;
     const startX = (WIDTH - colWidth * 3) / 2;
-    const statsY = afterEvent + 100;
+    const statsY = afterEvent + 95;
+
+    // Vertical separators between stats
+    context.strokeStyle = "rgba(255,255,255,0.1)";
+    context.beginPath();
+    context.moveTo(WIDTH / 2 - 130, statsY - 28);
+    context.lineTo(WIDTH / 2 - 130, statsY + 28);
+    context.moveTo(WIDTH / 2 + 130, statsY - 28);
+    context.lineTo(WIDTH / 2 + 130, statsY + 28);
+    context.stroke();
 
     stats.forEach((stat, i) => {
       const cx = startX + colWidth * i + colWidth / 2;
-
       context.textAlign = "center";
 
-      context.font = "700 36px Inter, Arial, sans-serif";
+      context.font = "700 40px Inter, Arial, sans-serif";
       context.fillStyle = "#FFFFFF";
       context.fillText(stat.value, cx, statsY);
 
-      context.font = "500 16px Inter, Arial, sans-serif";
+      context.font = "500 15px Inter, Arial, sans-serif";
       context.fillStyle = "rgba(255,255,255,0.4)";
-      context.fillText(stat.label, cx, statsY + 34);
+      context.fillText(stat.label, cx, statsY + 32);
     });
 
-    statsBottom = statsY + 34;
+    statsBottom = statsY + 32;
   }
 
   // Quote
-  context.font = "italic 400 28px Inter, Arial, sans-serif";
-  const quoteLines = wrapText(context, `“${input.quote}”`, 820);
-  const quoteStartY = Math.min(Math.max(statsBottom + 70, 1100), HEIGHT - 120);
+  context.font = "italic 400 26px Inter, Arial, sans-serif";
+  const quoteLines = wrapText(context, `“${input.quote}”`, 860);
+  const quoteStartY = Math.min(Math.max(statsBottom + 60, 1080), HEIGHT - 110);
 
   quoteLines.forEach((line, i) => {
     drawCenteredText(
       context,
       line,
-      quoteStartY + i * 40,
-      "italic 400 28px Inter, Arial, sans-serif",
-      "rgba(255,255,255,0.5)",
+      quoteStartY + i * 38,
+      "italic 400 26px Inter, Arial, sans-serif",
+      "rgba(255,255,255,0.48)",
     );
   });
 
@@ -284,9 +292,9 @@ export async function createSurvivalShareCard(input: ShareCardInput) {
   drawCenteredText(
     context,
     "CAN YOU SURVIVE AS A STUDENT IN INDIA?",
-    HEIGHT - 48,
-    "500 16px Inter, Arial, sans-serif",
-    "rgba(255,255,255,0.3)",
+    HEIGHT - 42,
+    "500 15px Inter, Arial, sans-serif",
+    "rgba(255,255,255,0.28)",
   );
 
   return new Promise<Blob>((resolve, reject) => {
