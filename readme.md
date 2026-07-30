@@ -6,7 +6,9 @@ This isn't a typical educational game. It's a reflection of the system every asp
 
 ## 🔗 Demo
 
-**Live Demo:** [Coming Soon]
+**Live Demo:**
+
+https://github.com/user-attachments/assets/443245e5-ac33-442d-87f1-f95c332906a9
 
 > Play through the simulation, face random events, and see if you survive the Indian student experience.
 
