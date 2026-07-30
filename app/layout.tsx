@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://student-survival-simulator-gules.vercel.app"),
   title: "Student Survival Simulator — Can You Survive as a Student in India?",
   description:
     "A 3-minute interactive simulation. Exam delays, server crashes, paper leaks. Can you survive the Indian student experience?",
